@@ -10,16 +10,28 @@ let getElements = (response) => {
   console.log('response', response);
   console.log('response results', results);
   let outputStr = '';
-  for (let person of results) {
-    console.log(person.name);
-    outputStr += `<li>${person.name}</li>`;
+  console.log('results[0].name', results[0].name);
+
+  if (results[0].name) {
+    for (let choice of results) {
+      console.log(choice.name);
+      outputStr += `<li>${choice.name}</li>`;
+    }
+    console.log('outputStr', outputStr);
+  } else {
+    for (let choice of results) {
+      console.log(choice.title);
+      outputStr += `<li>${choice.title}</li>`;
+    }
+    console.log('outputStr', outputStr);
   }
-  console.log('outputStr', outputStr);
   $('.list').html(outputStr);
+
 };
 
-async function makeApiCall() {
-  const response = await StarWars.get();
+async function makeApiCall(choice) {
+  const response = await StarWars.get(choice);
+  // if 
   console.log('starwars response', response);
   getElements(response);
 }
@@ -28,8 +40,9 @@ $(document).ready(() => {
   $('.form-elements').submit((e) => {
     e.preventDefault();
     let selected = $('#dropdown').val();
-    let response = makeApiCall();
     console.log('selected', selected);
+
+    let response = makeApiCall(selected);
     console.log('response after submitting', response);
 
   });

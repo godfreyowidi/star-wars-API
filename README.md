@@ -1,7 +1,8 @@
-# _Application Name_
+# _StarWars-API_
 
-#### _App Name - 0X/XX/21 - Code Review00X_
+#### _More Like a StarWar movie library_
 
+#### By _**Godfrey Owidi**_
 #### By _**Jennifer Bordon**_
 
 ## Technologies Used
@@ -22,13 +23,13 @@
 
 ## Setup/Installation Requirements
 * Clone this project into your preferred directory
-* In that directory, there should now be a directory labeled "repoName"
+* In that directory, there should now be a directory labeled "star-wars-API"
 * run `npm i` to install respective plugins/packages
 * run `npm start` to go see a live server of the app
 
 ## Github Pages link
 
-[Click here](https://bordonj.github.io/repoHere) for the Github Pages link. 
+[Click here](https://github.com/godfreyowidi/star-wars-API) for the Github Pages link. 
 
 ## Known Bugs
 
@@ -42,4 +43,5 @@ Distributed under the MIT License. See LICENSE for more information.
 
 ## Contact Information
 
+_godfreyowiidi@gmail.com,_
 _jennifer.bordon@gmail.com_

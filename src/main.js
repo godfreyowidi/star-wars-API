@@ -6,44 +6,57 @@ import StarWars from './js/star-wars.js';
 // import { Project } from 'js/project';
 
 let getElements = (response) => {
-  let results = response.results;
-  console.log('response', response);
-  console.log('response results', results);
-  let outputStr = '';
-  console.log('results[0].name', results[0].name);
+  let results;
+  if (response.data) {
+    results = response.data.results;
+  } else {
+    results = response.results;
+  }
 
+  let outputStr = '';
+  
   if (results[0].name) {
     for (let choice of results) {
-      console.log(choice.name);
       outputStr += `<li>${choice.name}</li>`;
     }
-    console.log('outputStr', outputStr);
+  
   } else {
     for (let choice of results) {
-      console.log(choice.title);
       outputStr += `<li>${choice.title}</li>`;
     }
-    console.log('outputStr', outputStr);
   }
-  $('.list').html(outputStr);
+  $('.list').append(outputStr);
 
 };
+async function getMore(choiceData) {
+  try {
+    const results = await fetch(choiceData.next);
+    if (!results.ok) {
+      throw Error(results.statusText);
+    }
+    let parsed = await results.json();
+    getElements(parsed);
+    if (parsed.next) {
+      getMore(parsed);
+    }
+  } catch(error) {
+    return error.message;
+  }
+  
+}
 
 async function makeApiCall(choice) {
   const response = await StarWars.get(choice);
-  // if 
-  console.log('starwars response', response);
   getElements(response);
+  getMore(response.data);
 }
 
 $(document).ready(() => {
   $('.form-elements').submit((e) => {
     e.preventDefault();
+    $('.list').text('');
     let selected = $('#dropdown').val();
-    console.log('selected', selected);
-
-    let response = makeApiCall(selected);
-    console.log('response after submitting', response);
+    makeApiCall(selected);
 
   });
 });
